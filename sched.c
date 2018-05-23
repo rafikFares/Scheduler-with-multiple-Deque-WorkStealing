@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <errno.h>
 #include "sched.h"
+#include <time.h>
 
 pthread_key_t key;
 
@@ -179,7 +180,9 @@ void * touverTaskStealing(void * shod) {
                     break;
 
                 }else{
-                    sleep(1/4);
+
+                    struct timespec time { 0 , 1000 * 1000 };              	
+                    nanosleep(&time , NULL);
 
                     if (sched->threadOnWork == 0) {
                         pthread_exit(NULL);
